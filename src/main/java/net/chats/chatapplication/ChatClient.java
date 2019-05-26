@@ -35,9 +35,9 @@ public class ChatClient extends javax.swing.JFrame {
 
 //    static DataInputStream dataInputStream;
 //    static DataOutputStream dataOutputStream;
-
     static String username, address = "localhost";
     ArrayList<String> users = new ArrayList<>();
+    static ArrayList<String> online_users = new ArrayList<>();
     int port = 6542;
     Boolean isConnected = false;
 
@@ -91,20 +91,6 @@ public class ChatClient extends javax.swing.JFrame {
     public ChatClient(String username) {
         initComponents();
         this.username = username;
-        
-        
-        
-        int i=0;
-        ta_audience.append("\n Online users : \n");
-        for (String current_user : ChatServer.getUsers())
-        {
-            ta_audience.append(current_user);
-            ta_audience.append("\n");
-            System.out.println(current_user);
-            System.out.println(i+1);
-            i++;
-        }    
-        
 
         // connect /////////////////////////////////////////////////////////
         if (isConnected == false) {
@@ -117,11 +103,19 @@ public class ChatClient extends javax.swing.JFrame {
                 reader = new BufferedReader(streamreader);
                 writer = new PrintWriter(socket.getOutputStream());
                 writer.println(username + ":has connected.:Connect");
+
+                online_users.add(username);
+
                 writer.flush();
                 isConnected = true;
+
             } catch (Exception ex) {
-                   msg_area.append("Cannot Connect! Try Again. \n");
+                msg_area.append("Cannot Connect! Try Again. \n");
                 //  tf_username.setEditable(true);
+            } finally {
+                for (String online : online_users) {
+                    ta_audience.append(online + "\n");
+                }
             }
 
             ListenThread();
@@ -221,6 +215,7 @@ public class ChatClient extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Audience"));
 
+        ta_audience.setEditable(false);
         ta_audience.setColumns(20);
         ta_audience.setRows(5);
         jScrollPane3.setViewportView(ta_audience);
@@ -311,8 +306,8 @@ public class ChatClient extends javax.swing.JFrame {
                 while ((stream = reader.readLine()) != null) {
                     data = stream.split(":");
                     if (data[2].equals(chat)) {
-                          msg_area.append(data[0] + ": " + data[1] + "\n");
-                          msg_area.setCaretPosition(msg_area.getDocument().getLength());
+                        msg_area.append(data[0] + ": " + data[1] + "\n");
+                        msg_area.setCaretPosition(msg_area.getDocument().getLength());
                     } else if (data[2].equals(connect)) {
                         msg_area.removeAll();
                         userAdd(data[0]);
@@ -327,20 +322,10 @@ public class ChatClient extends javax.swing.JFrame {
             } catch (Exception e) {
             }
         }
-
     }
-
 
     private void msg_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msg_sendActionPerformed
         // TODO add your handling code here:
-//        try {
-//            String msgout = "";
-//            msgout = msg_text.getText().trim();
-//            //System.out.println("User: "+username);
-//            dataOutputStream.writeUTF(username+": "+msgout);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         String nothing = "";
         if (msg_text.getText().equals(nothing)) {
             msg_text.setText(nothing);
@@ -369,14 +354,14 @@ public class ChatClient extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG", "jpeg", "jpg", "png", "bmp", "gif");
         fileChooser.setFileFilter(filter);
-        
+
         int selected = fileChooser.showOpenDialog(null);
-        if(selected == JFileChooser.APPROVE_OPTION){
+        if (selected == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
             String getSelectedImage = file.getAbsolutePath();
-            
+
             ImageIcon imageIcon = new ImageIcon(getSelectedImage);
-            
+
             // make image fit
             Image imageFt = imageIcon.getImage();
             Image imageFit = imageFt.getScaledInstance(jLabel_img.getWidth(), jLabel_img.getHeight(), Image.SCALE_SMOOTH);
@@ -402,26 +387,4 @@ public class ChatClient extends javax.swing.JFrame {
     private javax.swing.JTextField msg_text;
     private javax.swing.JTextArea ta_audience;
     // End of variables declaration//GEN-END:variables
-
-//    @Override
-//    public void run() {
-//        try {
-//            System.out.print("Client run");
-//            socket = new Socket("127.0.0.1", 6542); // here the ip addr is local addr. Because i am running the client and server at sam computer.
-//            dataInputStream = new DataInputStream(socket.getInputStream());
-//            dataOutputStream = new DataOutputStream(socket.getOutputStream());
-//
-//            String msgin = "";
-//
-//            while (!msgin.equals("exit")) {
-//                msgin = dataInputStream.readUTF();
-//                //msg_area.setText(msg_area.getText().trim()+"\n Server:\\t"+msgin);
-//                System.out.println(msgin);
-//                msg_area.append(msgin + "\n");
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

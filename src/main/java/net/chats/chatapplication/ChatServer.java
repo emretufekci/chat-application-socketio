@@ -83,7 +83,6 @@ public class ChatServer extends javax.swing.JFrame {
         b_end = new javax.swing.JButton();
         b_users = new javax.swing.JButton();
         b_clear = new javax.swing.JButton();
-        lb_name = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat - Server's frame");
@@ -122,9 +121,6 @@ public class ChatServer extends javax.swing.JFrame {
             }
         });
 
-        lb_name.setText("TechWorld3g");
-        lb_name.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,10 +138,6 @@ public class ChatServer extends javax.swing.JFrame {
                             .addComponent(b_clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(b_users, javax.swing.GroupLayout.PREFERRED_SIZE, 103, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lb_name)
-                .addGap(209, 209, 209))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,8 +152,7 @@ public class ChatServer extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_clear)
                     .addComponent(b_end))
-                .addGap(4, 4, 4)
-                .addComponent(lb_name))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -276,7 +267,6 @@ public class ChatServer extends javax.swing.JFrame {
     private javax.swing.JButton b_start;
     private javax.swing.JButton b_users;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lb_name;
     private javax.swing.JTextArea ta_chat;
     // End of variables declaration//GEN-END:variables
 }

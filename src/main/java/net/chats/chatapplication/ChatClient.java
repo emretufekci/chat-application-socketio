@@ -189,7 +189,9 @@ public class ChatClient extends javax.swing.JFrame {
                         .addComponent(jButton4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel_img, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+
+
+                            .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -357,7 +359,7 @@ public class ChatClient extends javax.swing.JFrame {
             // make image fit
             Image imageFt = imageIcon.getImage();
             Image imageFit = imageFt.getScaledInstance(jLabel_img.getWidth(), jLabel_img.getHeight(), Image.SCALE_SMOOTH);
-            jLabel_img.setIcon(new ImageIcon(imageFt));
+            jLabel_img.setIcon(new ImageIcon(imageFit));
         }
 
     }//GEN-LAST:event_jButton_choose_folderActionPerformed
